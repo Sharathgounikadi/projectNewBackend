@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Get from './Get';
 
 function App() {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState("");
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/data')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => console.error("Error fetching data", error));
-  }, [data]);
-
-
-  const handleSubmit = (e) => {
+   const handleSubmit = (e) => {
     e.preventDefault();
     const dataToAdd = { content: newData };
 
-    axios.post('http://localhost:5000/api/data', dataToAdd)
+    axios.post('https://projectnewbackend.onrender.com/api/data', dataToAdd)
       .then(response => {
         setData([...data, response.data]);
         setNewData(""); 
@@ -28,8 +20,7 @@ function App() {
 
   return (
     <div>
-      <h1>Dynamic Data</h1>
-      
+      <h1>Dynamic Data</h1>    
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -39,13 +30,7 @@ function App() {
         />
         <button type="submit">Add</button>
       </form>
-
-      <h2>Fetched Data:</h2>
-      <ul>
-        {data.map((item, index) => (
-          <li key={index}>{item.content}</li>
-        ))}
-      </ul>
+      <Get apidata={data}/>
     </div>
   );
 }

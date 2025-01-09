@@ -6,7 +6,7 @@ function App() {
   const [newData, setNewData] = useState("");
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/data')
+    axios.get('http://localhost:5000/api/data')
       .then(response => {
         setData(response.data);
       })
@@ -18,7 +18,7 @@ function App() {
     e.preventDefault();
     const dataToAdd = { content: newData };
 
-    axios.post('http://localhost:5001/api/data', dataToAdd)
+    axios.post('http://localhost:5000/api/data', dataToAdd)
       .then(response => {
         setData([...data, response.data]);
         setNewData(""); 
